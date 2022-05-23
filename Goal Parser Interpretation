@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string interpret(string c)
+    {   string res = "";
+         for(int i=0;i<c.size();i++)
+         {
+             if(c[i]=='('&&c[i+1]==')')
+             {
+                 
+                 res+="o";
+                 i++;
+             }
+             else if(c[i]=='('&&c[i+1]=='a')
+             {
+                 res+="al";
+                 i+=3;
+             }
+             else
+             {
+                 res+=c[i];
+             }
+         }
+         
+     return res;
+    } 
+};
