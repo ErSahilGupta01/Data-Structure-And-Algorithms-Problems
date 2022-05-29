@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& n)
+    { int maxcur=0,maxsofar=0;
+      for(int i=1;i<n.size();i++)
+      {
+          maxcur=max(0,maxcur+=n[i]-n[i-1]);
+          maxsofar=max(maxcur,maxsofar);
+      }
+     return maxsofar;
+    }
+};
