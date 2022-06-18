@@ -1,0 +1,105 @@
+class BinaryTree:
+    def __init__(self, root):
+        self.key = root
+        self.leftChild = None
+        self.rightChild = None
+
+    def insertLeft(self, newNode):
+        if self.leftChild == None:
+            self.leftChild = BinaryTree(newNode)
+        else:
+            t = BinaryTree(newNode)
+            t.leftChild = self.leftChild
+            self.leftChild = t
+
+    def insertRight(self, newNode):
+        if self.rightChild == None:
+            self.rightChild = BinaryTree(newNode)
+        else:
+            t = BinaryTree(newNode)
+            t.rightChild = self.rightChild
+            self.rightChild = t
+    
+    def inOrder(self):
+        if self.leftChild:
+            self.leftChild.inOrder()
+        print(self.key)
+        if self.rightChild:
+            self.rightChild.inOrder()
+    
+    def preOrder(self):
+        print(self.key)
+        if self.leftChild:
+            self.leftChild.preOrder()
+        if self.rightChild:
+            self.rightChild.preOrder()
+    
+    def postOrder(self):
+        if self.leftChild:
+            self.leftChild.postOrder()
+        if self.rightChild:
+            self.rightChild.postOrder()
+        print(self.key)
+
+
+class BST(BinaryTree):
+    def __init__(self, root):
+        super().__init__(root)
+
+    def insert(self, newNode):
+        if newNode < self.key:
+            if self.leftChild:
+                self.leftChild.insert(newNode)
+            else:
+                self.leftChild = BST(newNode)
+        else:
+            if self.rightChild:
+                self.rightChild.insert(newNode)
+            else:
+                self.rightChild = BST(newNode) 
+    
+    def search(self,newNode):
+        if newNode == self.key:
+            print('Found')
+        if self.key < newNode:
+            if(self.rightChild==None):
+                print("Not found")
+            else:
+                self.rightChild.search(newNode)
+              
+        if self.key > newNode:
+            if(self.leftChild==None):
+                print("Not found")
+            else:
+                self.leftChild.search(newNode)
+            
+        
+
+def main():
+    '''root = BinaryTree('a')
+    root.insertLeft('b')
+    root.insertRight('c')
+    root.leftChild.insertLeft('d')
+    root.leftChild.insertRight('e')
+    root.rightChild.insertLeft('f')
+    root.rightChild.insertRight('g')'''
+
+    rootBST = BST('d')
+    rootBST.insert('b')
+    rootBST.insert('f')
+    rootBST.insert('a')
+    rootBST.insert('c')
+    rootBST.insert('e')
+    rootBST.insert('g')
+
+    print('Inorder:')
+    rootBST.inOrder()
+    print('Preorder:')
+    rootBST.preOrder()
+    print('Postorder:')
+    rootBST.postOrder()
+    print('Searched element:')
+    rootBST.search('e')
+
+if __name__ == '__main__':
+    main()
