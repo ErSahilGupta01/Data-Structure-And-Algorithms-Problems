@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int sumOddLengthSubarrays(vector<int>& arr) {
+         int ans = 0,n=arr.size(),i;
+        for(i =0;i<n;i++)
+		{
+          int k= ((i+1)*(n-i)+1)/2*arr[i];
+          ans+=k;
+            
+        }
+        return ans;
+        
+    }
+};
