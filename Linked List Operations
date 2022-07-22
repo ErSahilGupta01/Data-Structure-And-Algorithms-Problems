@@ -1,0 +1,147 @@
+class Node
+{
+    public:
+    
+    int data;
+    Node* next;
+    Node(int data)
+    {
+        this->data=data;
+        this->next=NULL; 
+    }
+    ~Node()
+    {
+        int value = this->data;
+        // memory free
+        if(this->next!=NULL)
+        {
+            delete next;
+            this->next=NULL;
+        }
+    }
+    
+};
+// Insertion Function
+void insertatbegin(Node* &head,int data)
+{
+    Node* temp= new Node(data);
+    temp->next=head;
+    head=temp;
+}
+
+void insertatlast(Node* &tail,int data)
+{
+    Node* temp = new Node(data);
+    tail->next=temp;
+    tail=temp;
+}
+
+void insertinmiddle(Node* &head,Node* &tail,int pos,int data)
+{
+    Node* temp=head;
+    int count=1;
+    // if insert at beginning
+    if(pos==1)
+    {
+        insertatbegin(head,data);
+        return ;
+    }
+    while(count<pos-1)
+    {
+        temp=temp->next;
+        count++;
+    }
+    if(temp->next==NULL)
+    {
+        insertatlast(tail,data);
+        return ;
+    }
+    Node *ptr = new Node(data);
+    ptr->next=temp->next;
+    temp->next=ptr;
+    
+}
+// Print Function
+void print(Node* &head)
+{
+    
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+
+void deleteNode(int pos,Node* &head,Node* &tail)
+{
+    // deleting first or start Node
+    if(pos==1)
+    {
+        Node* temp=head;
+        head=head->next;
+        
+        // memory free 
+        temp->next=NULL;
+        delete temp;
+    }
+    else
+    {
+        // deleting any middle or last node
+        Node* curr=head;
+        Node* prev=NULL;
+        int count=1;
+        while(count<pos)
+        {
+            prev=curr;
+            curr=curr->next;
+            count++;
+        }
+        prev->next=curr->next;
+        
+        curr->next=NULL;
+        delete curr;
+        if(prev->next==NULL)
+        {
+            tail=prev;
+        }
+     }
+
+}
+int main()
+{
+  // create a new node  
+  Node* node1=new Node(10);
+  
+//   cout<<node1->data<<endl;
+//   cout<<node1->next<<endl;
+
+// head point to node1
+Node* head=node1;
+
+// tail point to node1
+Node* tail=node1;
+
+print(head);
+
+insertatlast(tail,12);
+print(head);
+insertatlast(tail,20);
+// After insertion
+
+insertinmiddle(head,tail,3,18);
+print(head);
+
+insertinmiddle(head,tail,1,5);
+print(head);
+
+insertinmiddle(head,tail,6,25);
+print(head);
+cout<<head->data<<" "<<tail->data<<endl;
+
+deleteNode(6,head,tail);
+print(head);
+cout<<head->data<<" "<<tail->data<<endl;
+    return 0;
+}
