@@ -1,0 +1,50 @@
+   #include <bits/stdc++.h>
+   using namespace std;
+   #define ll long long
+   void gen(int n,char str[],int k)
+   {
+      if(k==n)
+      {
+         
+         cout<<str<<" ";
+         return ;
+      }
+      if(str[k-1]=='1')
+      {
+         str[k]='0';
+         gen(n,str,k+1);
+      }
+      if(str[k-1]=='0')
+      {
+         str[k]='1';
+         gen(n,str,k+1);
+
+         str[k]='0';
+         gen(n,str,k+1);
+      }
+   }
+   void generate(int k)
+   {
+      if(k<=0)
+      {
+         return ;
+      }
+      char str[k];
+
+      str[0]='0';
+      gen(k,str,1);
+
+      str[0]='1';
+      gen(k,str,1);
+   }
+   int main()
+   {  ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+      
+      int n;
+      cin>>n;
+      generate(n);
+
+     return 0;
+   }
+   
